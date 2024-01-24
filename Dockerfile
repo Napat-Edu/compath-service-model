@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 ENV PORT 5000
 
-CMD exec gunicorn --bind :$PORT app:app --workers 1 --threads 1 --timeout 0
+CMD exec gunicorn --bind :$PORT app:index() --workers 1 --threads 1 --timeout 0
