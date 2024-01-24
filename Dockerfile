@@ -1,14 +1,15 @@
 FROM python:3.11-slim
 
-ENV PYTHONUNBUFFERED True
+WORKDIR /compath-service-model
+COPY . /compath-service-model
 
-ENV APP_HOME /app
+RUN pip3 install virtualenv
+RUN python3 -m venv service 
+RUN . service/bin/activate
+RUN python3 -m pip install -r requirements.txt
 
+EXPOSE 5000
 ENV PORT 5000
-
-WORKDIR $APP_HOME
-
-COPY . ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
