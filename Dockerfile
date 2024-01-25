@@ -1,15 +1,13 @@
 FROM python:3.11-slim
 
-WORKDIR /compath-service-model
-COPY . /compath-service-model
+ENV PORT 5001
 
-RUN pip3 install virtualenv
-RUN python3 -m venv env
-RUN . env/bin/activate
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app
+COPY . ./
 
-EXPOSE 5000
-ENV PORT 5000
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
+RUN python3 -m nltk.downloader punkt
+RUN python3 -m nltk.downloader stopwords
+RUN python3 -m nltk.downloader wordnet
 
-CMD ["flask run"]
-# CMD exec gunicorn --bind :$PORT app:app --workers 1 --threads 1 --timeout 0
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
