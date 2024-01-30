@@ -6,10 +6,10 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['POST'])
 def index():
-  params = request.args.to_dict()
-
+  resumeInput = request.json
+  
   loaded_model = None
   loaded_tfidf = None
 
@@ -21,7 +21,7 @@ def index():
   loaded_tfidf = pickle.load(f)
   f.close()
 
-  text = " ".join(params.values())
+  text = resumeInput.get("skill") + " " + resumeInput.get("educational") + " " + resumeInput.get("experience")
   text = cleanResume(text)
   text = np.array([text])
 
