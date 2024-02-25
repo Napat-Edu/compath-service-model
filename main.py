@@ -28,12 +28,14 @@ def index():
   valid_test = loaded_tfidf.transform(text)
   tfidf_valid_arrays = valid_test.toarray()
 
-  answer = ['Data & AI',
-        'Designer',
-        'Cloud Management',
-        'QA & Tester',
-        'Security',
-        'Developer']
+  answer = [
+    'Cloud Management',
+    'Data & AI',
+    'Designer',
+    'Developer',
+    'QA & Tester',
+    'Security'
+  ]
 
   job_position = loaded_model.predict(tfidf_valid_arrays)[0]
 
