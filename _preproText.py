@@ -5,12 +5,12 @@ from nltk.corpus import stopwords
 import re
 
 junk_word = ('Ltd', 'January', 'Maharashtra', 'Electrical', 'Exprience', 'month', 'Less', 'year', 'Education', 'It', 'using',
-             'details', 'company', 'skill', 'engineering', 'college')
+             'details', 'company', 'skill', 'engineering', 'college', 'Month', 'good', 'Good', 'DETAILS', 'Responsibilities', 'would', 'like', 'month.')
 
 def cleanResume(resumeText):
     resumeText = removeWord(resumeText)
-    resumeText = lemmatize_text(resumeText)
     resumeText = removeJunk(resumeText)
+    resumeText = lemmatize_text(resumeText)
     return resumeText
 
 def removeJunk(resumeText):
@@ -23,13 +23,12 @@ def removeJunk(resumeText):
     return ' '.join(texts)
 
 def removeWord(resumeText):
-    resumeText = re.sub('http\S+\s', ' ', resumeText)  # remove URLs
-    resumeText = re.sub('RT|cc', ' ', resumeText)  # remove RT and cc
-    resumeText = re.sub('#\S+', '', resumeText)  # remove hashtags
-    resumeText = re.sub('@\S+', '  ', resumeText)  # remove mentions
+    resumeText = re.sub('http\S+\s', ' ', resumeText)
+    resumeText = re.sub('RT|cc', ' ', resumeText)
+    resumeText = re.sub('@\S+', '  ', resumeText)
     resumeText = re.sub('[%s]' % re.escape("""%'()!"#$&;<=>?@[]^_`{|}-~"""), ' ',resumeText)
     resumeText = re.sub(r'[^\x00-\x7f]',r' ', resumeText)
-    resumeText = re.sub('\s+', ' ', resumeText)  # remove extra whitespace
+    resumeText = re.sub('\s+', ' ', resumeText)
     return resumeText
 
 def lemmatize_text(text):
